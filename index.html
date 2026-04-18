@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SparkleClean - Professional Cleaning Services">
+    <title>SparkleClean | Professional Cleaning Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+    /* Colors */
+    --primary: #C9A227;
+    --dark: #0E0E0E;
+    --soft: #F6F6F6;
+    --accent: #1E3A8A;
+
+    /* DESIGN SYSTEM SPACING */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2.5rem;    /* 40px */
+    --space-2xl: 4rem;     /* 64px */
+    --space-3xl: 6rem;     /* 96px */
+}
+        body { 
+            scroll-behavior: smooth; 
+            
+}
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+        html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+        /* Full Cover Carousel */
+        .carousel-item { height: 100vh; position: relative; }
+        .carousel-item img { 
+            height: 100vh; width: 100%; object-fit: cover; object-position: center; 
+        }
+        .carousel-item::before { 
+            content: ""; position: absolute; top: 0; left: 0; 
+            width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1; 
+        }
+        .hero-text { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            color: white; text-align: center; z-index: 2; width: 90%; max-width: 800px; 
+        }
+
+        /* ULTRA CLEAN MOBILE TOGGLER - ONLY 3 STRAIGHT LINES */
+        .navbar-toggler {
+            border: none !important;
+            background: transparent !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+        .navbar-toggler:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+        .navbar-toggler-icon {
+            background-image: none !important;
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            position: relative;
+            display: block;
+            margin: 6px auto;
+        }
+        .navbar-toggler-icon::before,
+        .navbar-toggler-icon::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            left: 0;
+        }
+        .navbar-toggler-icon::before { top: -8px; }
+        .navbar-toggler-icon::after { bottom: -8px; }
+
+        /* Fade-in */
+        .fade-in { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Service Cards */
+        .service-card { transition: all 0.4s ease; overflow: hidden; }
+        .service-card:hover { transform: translateY(-12px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.25); }
+        .service-card img { height: 200px; object-fit: cover; width: 100%; }
+
+        /* Gallery */
+        .gallery-item { overflow: hidden; border-radius: 12px; height: 260px; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.12); }
+
+        /* Lightbox */
+        #lightbox { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; 
+        }
+        #lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .lightbox-controls { 
+            position: absolute; top: 30px; right: 30px; color: white; font-size: 40px; 
+            font-weight: bold; cursor: pointer; z-index: 2100; 
+        }
+
+        .whatsapp-float {
+            position: fixed; bottom: 25px; right: 25px; background: #25D366;
+            width: 60px; height: 60px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 28px;
+            color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: bubble 2s infinite; z-index: 1000;
+        }
+        @keyframes bubble { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        footer { background: #1a1a1a; }
+
+        /* Glass Popup */
+#successPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000; /* higher than lightbox */
+}
+
+.popup-box {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    animation: popUp 0.4s ease;
+}
+
+.popup-box i {
+    font-size: 50px;
+    color: #00ffae;
+    margin-bottom: 15px;
+}
+
+.popup-box button {
+    margin-top: 15px;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 30px;
+    background: #d4af37;
+    font-weight: bold;
+}
+
+@keyframes popUp {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+/* new */
+@media (max-width: 576px) {
+    h1 { font-size: 1.8rem !important; }
+    h2 { font-size: 1.5rem !important; }
+    .lead { font-size: 0.95rem; }
+    p { font-size: 0.9rem; }
+}
+
+@media (max-width: 576px) {
+    .service-card img {
+        height: 140px;
+    }
+
+    .gallery-item {
+        height: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 10px 15px;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+body {
+    padding-top: 55px;
+}
+
+/* ===== ADVANCED RESPONSIVENESS ===== */
+
+/* Smooth font scaling */
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+h5 { font-size: clamp(1rem, 2.5vw, 1.3rem); }
+p  { font-size: clamp(0.9rem, 2vw, 1.1rem); }
+
+/* Better spacing scaling */
+section {
+    padding: clamp(40px, 6vw, 80px) 0;
+}
+
+/* Tablet view → 2 columns */
+@media (max-width: 992px) {
+    .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* Small phones → tighter spacing */
+@media (max-width: 576px) {
+    .hero-text {
+        width: 95%;
+    }
+
+    .carousel-item img {
+        object-position: center;
+    }
+}
+
+.card, .btn {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+@media (max-width: 768px) {
+    #whyus .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    #location .col-lg-5 {
+        text-align: center;
+    }
+
+    #location .col-lg-5 i {
+        display: block;
+        margin-bottom: 8px;
+    }
+}
+@media (max-width: 768px) {
+    #location .mb-4 {
+        margin-bottom: 25px;
+    }
+}
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* POPUP BACKGROUND */
+#successPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 5000;
+}
+
+/* SHOW STATE */
+#successPopup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* POPUP BOX */
+.popup-box {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 30px 40px;
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(15px);
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+/* ANIMATION */
+#successPopup.show .popup-box {
+    transform: scale(1);
+}
+
+/* ICON */
+.popup-box i {
+    font-size: 50px;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 8px 0 !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem !important;
+    }
+
+    .navbar-toggler {
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 75vh;
+    }
+
+    .carousel-item img {
+        height: 75vh;
+    }
+
+    .hero-text h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+}
+.carousel-item {
+    min-height: 60vh;
+}
+@media (max-width: 768px) {
+    footer .row > div {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    footer .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+/* =========================
+   MICRO INTERACTIONS
+========================= */
+
+/* Buttons feel alive */
+.btn {
+    transition: all 0.3s ease;
+}
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Navbar links smooth underline */
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Cards slightly zoom on hover */
+.service-card {
+    transition: all 0.4s ease;
+}
+.service-card:hover {
+    transform: scale(1.03);
+}
+
+/* Icons bounce slightly */
+i {
+    transition: transform 0.3s ease;
+}
+i:hover {
+    transform: scale(1.2);
+}
+/* =========================
+   GLASS NAVBAR ON SCROLL
+========================= */
+
+/* Default navbar (top) */
+.navbar {
+    transition: all 0.4s ease;
+}
+
+/* Glass effect when scrolling */
+.navbar.scrolled {
+    background: rgba(20, 20, 20, 0.5) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.review-box {
+    max-width: 600px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    transition: all 0.4s ease;
+}
+
+.review-box:hover {
+    transform: translateY(-5px);
+}
+.review-text {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* STRONG mobile override */
+@media (max-width: 576px) {
+    .review-text {
+        font-size: 0.85rem !important;
+        line-height: 1.5;
+    }
+
+    .review-box {
+        padding: 20px !important;
+    }
+
+    .review-box h6 {
+        font-size: 0.8rem !important;
+    }
+}
+@media (max-width: 576px) {
+
+    p {
+        font-size: 0.9rem !important;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    h2 {
+        font-size: 1.4rem !important;
+    }
+
+    section {
+        padding: 40px 0 !important;
+    }
+}
+section {
+    padding: var(--space-3xl) 0;
+}
+.section-title {
+    margin-bottom: 6px;
+}
+
+.section-subtitle {
+    margin-bottom: 20px;
+}
+
+
+/* Section spacing (VERY IMPORTANT) */
+section {
+    padding: var(--space-8) 0;
+}
+
+/* Tight section variant (optional use later) */
+.section-tight {
+    padding: var(--space-6) 0;
+}
+
+/* Headings system */
+.section-title {
+    margin-bottom: var(--space-2);
+}
+
+.section-subtitle {
+    margin-bottom: var(--space-xl);
+}
+.container {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+}
+
+/* Card spacing consistency */
+.card {
+    margin-bottom: var(--space-lg);
+}
+
+/* Review box spacing consistency */
+.review-box {
+    padding: var(--space-6);
+}
+@media (max-width: 576px) {
+    section {
+        padding: 48px 0;
+    }
+
+    .review-box {
+        padding: 20px;
+    }
+}
+@media (max-width: 576px) {
+    .display-3 {
+        font-size: 1.8rem !important;
+    }
+
+    .lead {
+        font-size: 0.9rem !important;
+    }
+
+    .hero-text h1 {
+        line-height: 1.2;
+    }
+}
+.hero-text p {
+    opacity: 0.9;
+}
+.btn-warning {
+    background: var(--primary);
+    border: none;
+    color: #111;
+    font-weight: 600;
+}
+
+.trust-item {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* Mobile optimization */
+@media (max-width: 576px) {
+    .trust-strip .container {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .trust-item {
+        font-size: 0.85rem;
+    }
+}
+
+
+.scrolling-text {
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.scroll-track {
+    display: flex;
+    width: max-content;
+    animation: scrollMove 20s linear infinite;
+}
+
+.scroll-content {
+    white-space: nowrap;
+    padding-right: 50px;
+}
+
+@keyframes scrollMove {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+
+/* HOW IT WORKS */
+.step{
+    text-align:center;
+    padding:20px;
+}
+.step i{
+    font-size:40px;
+    color:var(--primary);
+    margin-bottom:10px;
+}
+
+/* CTA SECTION */
+.cta{
+    background:var(--dark);
+    color:white;
+    text-align:center;
+    padding:80px 20px;
+}
+@media (max-width: 576px) {
+    .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+/* BEFORE AFTER SLIDER */
+.ba-wrapper {
+    position: relative;
+    max-width: 700px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: ew-resize;
+}
+
+.ba-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.ba-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* AFTER IMAGE (top layer) */
+.ba-image.after {
+    width: 50%;
+    overflow: hidden;
+}
+
+/* LABELS */
+.label {
+    position: absolute;
+    top: 15px;
+    padding: 5px 12px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.before .label {
+    left: 15px;
+}
+
+.after .label {
+    right: 15px;
+}
+
+/* SLIDER HANDLE */
+.ba-slider-handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: white;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.ba-slider-handle span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--primary);
+    color: black;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+    .ba-wrapper {
+        height: 250px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-3" href="#">SparkleClean</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto gap-3">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO CAROUSEL -->
+    <div id="home" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://media.istockphoto.com/id/611175238/photo/happy-cleaners-stacking-hands.jpg?s=612x612&w=0&k=20&c=_bVpj-MfaUrLTWGg6O8dCWWJrFOU0IvFa2ejMDKVwSs=" alt="Sparkling Home">
+                <div class="hero-text">
+                    <h1 class="display-3 fw-bold">SparkleClean</h1>
+                    <p class="lead">Professional Cleaning Services You Can Trust</p>
+                    <a href="https://wa.me/2347089743895?text=Hello%2C%20I%27m%20interested%20in%20your%20cleaning%20services.%20My%20name%20is..." class="btn btn-warning btn-lg">
+    Book Cleaning on WhatsApp
+</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://thumbs.dreamstime.com/b/african-janitor-woman-cleaning-office-commercial-services-african-janitor-woman-cleaning-office-218031739.jpg" alt="Office Cleaning">
+                <div class="hero-text">
+                    <h1 class="display-3 fw-bold">Spotless Spaces</h1>
+                    <p class="lead mb-3">Professional cleaning services for your home or office</p>
+                    <a href="#services" class="btn btn-warning btn-lg">
+    View Services
+</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrolling-text">
+    <div class="scroll-track">
+        <div class="scroll-content">
+            Clean • Safe • Book Your Consultation Today • Premium Cleaning • Top-quality services for every occasion •
+        </div>
+        <div class="scroll-content">
+            Clean • Safe • Book Your Consultation Today • Premium Cleaning • Top-quality services for every occasion •
+        </div>
+        <div class="scroll-content">
+            Clean • Safe • Book Your Consultation Today • Premium Cleaning • Top-quality services for every occasion •
+        </div>
+        <div class="scroll-content">
+            Clean • Safe • Book Your Consultation Today • Premium Cleaning • Top-quality services for every occasion •
+        </div>
+    </div>
+</div>
+
+    <!-- About -->
+    <section id="about" class="py-5 bg-light fade-in">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">About SparkleClean</h2>
+                    <p class="lead">We are a professional cleaning company providing reliable, high-quality cleaning services for homes, offices, and commercial spaces. Our trained team uses eco-friendly products and modern equipment to deliver outstanding results every time.</p>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/house-cleaning-logo%2C-maid-company-logo%2C-clean-design-template-a09f3b776d1a1c6d41127d9fd6eb4664_screen.jpg?ts=1690869654" loading="lazy" class="img-fluid rounded shadow" alt="Cleaning Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+<section id="stats" class="py-5 text-center bg-light fade-in">
+    <div class="container">
+        <div class="row g-4">
+
+            <div class="col-6 col-md-3">
+                <h2 class="counter fw-bold" data-target="1200">0</h2>
+                <p>Clients Served</p>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <h2 class="counter fw-bold" data-target="3500">0</h2>
+                <p>Jobs Completed</p>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <h2 class="counter fw-bold" data-target="8">0</h2>
+                <p>Years Experience</p>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <h2 class="counter fw-bold" data-target="98">0</h2>
+                <p>Customer Satisfaction %</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- Services -->
+    <section id="services" class="py-5 fade-in">
+        <div class="container">
+            <h2 class="text-center display-5 fw-bold section-title">Our Services</h2>
+            <p class="text-center section-subtitle">Discover our range of professional cleaning solutions</p>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card service-card h-100 shadow-sm">
+                        <img src="https://5.imimg.com/data5/SELLER/Default/2024/12/472120250/MG/FF/KD/42132674/residential-cleaning-services.jpeg" loading="lazy" class="card-img-top" alt="Residential Cleaning">
+                        <div class="card-body text-center">
+                            <h5>Residential Cleaning</h5>
+                            <p class="text-muted">Deep cleaning for homes &amp; apartments</p>
+                            <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal">
+    Book Now
+</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 shadow-sm">
+                        <img src="https://firstclasspropertyservices.ca/wp-content/uploads/2023/09/young-black-man-wiping-computer-monitors-while-wom-2022-04-29-00-28-55-utc.jpg" loading="lazy" class="card-img-top" alt="Office Cleaning">
+                        <div class="card-body text-center">
+                            <h5>Commercial &amp; Office Cleaning</h5>
+                            <p class="text-muted">Professional cleaning for offices &amp; shops</p>
+                            <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal">
+    Book Now
+</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 shadow-sm">
+                        <img src="https://d17x34b9fcvxk7.cloudfront.net/static/marketing/images/hero-backgrounds/deep-cleaning.jpg" loading="lazy" class="card-img-top" alt="Deep Cleaning">
+                        <div class="card-body text-center">
+                            <h5>Deep &amp; Thorough Cleaning</h5>
+                            <p class="text-muted">Intensive cleaning for every corner</p>
+                            <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal">
+    Book Now
+</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 shadow-sm">
+                        <img src="https://static.wixstatic.com/media/b52b46_678add4d7d8245fbbe1219ff2a41b9c0~mv2.jpg/v1/fill/w_568,h_378,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b52b46_678add4d7d8245fbbe1219ff2a41b9c0~mv2.jpg" loading="lazy" class="card-img-top" alt="Post Construction">
+                        <div class="card-body text-center">
+                            <h5>Post-Construction Cleaning</h5>
+                            <p class="text-muted">After renovation or building cleanup</p>
+                            <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal">
+    Book Now
+</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 shadow-sm">
+                        <img src="https://www.searshomeservices.com/cftassets/5gtNs49V6Ii6dIymsqAcXS/779249d0c9c8c398c86df45a7a932419/5f0b50a3305fd7b44e3797f1ea6c5a45?w=3840&q=90" loading="lazy" class="card-img-top" alt="Carpet Cleaning">
+                        <div class="card-body text-center">
+                            <h5>Carpet &amp; Upholstery Cleaning</h5>
+                            <p class="text-muted">Specialized fabric and carpet care</p>
+                            <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal">
+    Book Now
+</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card service-card h-100 shadow-sm">
+                        <img src="https://ecocleaning-nyc.com/wp-content/uploads/2023/05/eco-friendly-cleaning-services-1.png" loading="lazy" class="card-img-top" alt="Eco Cleaning">
+                        <div class="card-body text-center">
+                            <h5>Eco-Friendly Cleaning</h5>
+                            <p class="text-muted">Green &amp; safe cleaning solutions</p>
+                            <a href="#" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal">
+    Book Now
+</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE / AFTER SLIDER -->
+<section id="before-after" class="bg-light fade-in">
+    <div class="container text-center">
+
+        <h2 class="section-title fw-bold">See The Difference</h2>
+        <p class="section-subtitle">Drag the slider to reveal our cleaning results</p>
+
+        <div class="ba-wrapper mx-auto">
+            <div class="ba-image before">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952" alt="Before Cleaning">
+                <span class="label">Before</span>
+            </div>
+
+            <div class="ba-image after">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="After Cleaning">
+                <span class="label">After</span>
+            </div>
+
+            <div class="ba-slider-handle">
+                <span><i class="fas fa-arrows-left-right"></i></span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+    <!-- Booking Modal -->
+    <div class="modal fade" id="bookingModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Book Cleaning Service</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+
+          <div class="mb-3">
+            <label>Service Type</label>
+            <select class="form-control">
+              <option>Residential Cleaning</option>
+              <option>Commercial / Office Cleaning</option>
+              <option>Deep Cleaning</option>
+              <option>Post Construction</option>
+              <option>Carpet & Upholstery</option>
+              <option>Eco Cleaning</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label>Property Type</label>
+            <select class="form-control">
+              <option>Apartment</option>
+              <option>House</option>
+              <option>Office</option>
+              <option>Shop / Business</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Location / Address">
+          </div>
+
+          <div class="mb-3">
+            <input type="date" class="form-control">
+          </div>
+
+          <div class="mb-3">
+            <textarea class="form-control" placeholder="Extra details (optional)"></textarea>
+          </div>
+
+          <a href="https://wa.me/2347089743895" class="btn btn-warning w-100">
+            Send via WhatsApp
+          </a>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+    <!-- HOW IT WORKS -->
+<section id="how" style="background:var(--soft)">
+<div class="container">
+<h2 class="section-title text-center pt-5">How It Works</h2>
+
+<div class="row g-4 justify-content-center">
+<div class="col-12 col-md-4 step">
+<i class="fas fa-calendar-check"></i>
+<h5>1. Book Service</h5>
+<p>Select your cleaning type</p>
+</div>
+
+<div class="col-12 col-md-4 step">
+<i class="fas fa-user"></i>
+<h5>2. We Confirm</h5>
+<p>Fast response via WhatsApp</p>
+</div>
+
+<div class="col-12 col-md-4 step">
+<i class="fas fa-broom"></i>
+<h5>3. We Clean</h5>
+<p>Professional execution</p>
+</div>
+</div>
+</div>
+</section>
+
+    <!-- Why Choose Us -->
+    <section id="whyus" class="py-5 bg-light  fade-in">
+        <div class="container">
+            <h2 class="text-center display-5 fw-bold section-title">Why Choose SparkleClean</h2>
+            <p class="text-center section-subtitle">Discover what makes us the best choice for your cleaning needs</p>
+            <div class="row g-4 text-center">
+                <div class="col-md-4"><div class="p-4"><i class="fas fa-leaf fa-3x text-warning mb-3"></i><h5>Eco-Friendly Products</h5></div></div>
+                <div class="col-md-4"><div class="p-4"><i class="fas fa-clock fa-3x text-warning mb-3"></i><h5>Reliable &amp; On Time</h5></div></div>
+                <div class="col-md-4"><div class="p-4"><i class="fas fa-shield-alt fa-3x text-warning mb-3"></i><h5>Trained Professionals</h5></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Team -->
+    <section class="py-5 bg-light fade-in">
+    <div class="container">
+        <h2 class="text-center display-5 fw-bold">Meet Our Team</h2>
+        <p class="text-center text-muted mb-5">Professional cleaners you can trust</p>
+
+        <div class="row g-4 align-items-stretch">
+
+            <div class="col-12 col-md-4">
+                <div class="card text-center shadow-sm">
+                    <img src="https://img.freepik.com/free-photo/afro-woman-holding-bucket-with-cleaning-items_58466-11246.jpg?semt=ais_hybrid&w=740&q=80" class="card-img-top">
+                    <div class="card-body text-center">
+    <h5 class="fw-bold">John Doe (Owner)</h5>
+    <p class="text-muted mb-1">Founder & Lead Supervisor</p>
+    <p class="small">Experience: 8+ Years in Professional Cleaning Services</p>
+</div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card text-center shadow-sm">
+                    <img src="https://img.freepik.com/free-photo/smiling-holding-points-bucket-cleaning-tools-young-africanamerican-cleaner-male-uniform-with-gloves-isolated-green-background_141793-135154.jpg?semt=ais_hybrid&w=740&q=80" class="card-img-top">
+                    <div class="card-body text-center">
+    <h5 class="fw-bold">Mary James</h5>
+    <p class="text-muted mb-1">Cleaning Specialist</p>
+    <p class="small">Experience: 4+ Years in Residential Cleaning</p>
+</div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card text-center shadow-sm">
+                    <img src="https://www.shutterstock.com/image-photo/portrait-happy-african-american-woman-600nw-2624767427.jpg" class="card-img-top">
+                    <div class="card-body text-center">
+    <h5 class="fw-bold">David Obi</h5>
+    <p class="text-muted mb-1">Deep Cleaning Expert</p>
+    <p class="small">Experience: 6+ Years in Commercial Cleaning</p>
+</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- CTA -->
+    <section class="py-5 text-center" style="background: var(--dark); color:white;">
+<div class="container">
+
+<h2 class="fw-bold">Ready for a Spotless Home?</h2>
+<p class="mb-4">Book instantly via WhatsApp</p>
+
+<a href="https://wa.me/2347089743895"
+class="btn btn-warning btn-lg">
+Book Now
+</a>
+
+</div>
+</section>
+
+
+    <!-- REVIEWS -->
+<section id="reviews" class="py-5 bg-light fade-in">
+    <div class="container text-center">
+        <h2 class="text-center display-5 fw-bold section-title">
+            What Our Clients Say
+        </h2>
+
+        <p class="text-muted mb-3">
+            Trusted by 100+ happy cleaning clients
+        </p>
+        <div class="mb-2">
+    <i class="fab fa-google text-primary"></i>
+    <small class="text-muted">Verified Google Review</small>
+</div>
+
+        <div class="review-box mx-auto p-4 shadow rounded">
+            <div class="mb-3 d-flex justify-content-center">
+                <img id="review-img" src="https://i.pravatar.cc/80?img=1" 
+                     style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
+            </div>
+
+            <p class="review-text">
+                “Absolutely amazing service! My apartment has never looked better!”
+            </p>
+
+            <!-- ⭐⭐⭐⭐⭐ -->
+            <div class="text-warning mb-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+
+            <h6 class="fw-bold mb-0">— Emily Carter</h6>
+
+        </div>
+    </div>
+</section>
+
+<!-- Gallery -->
+    <section id="gallery" class="py-5 fade-in">
+        <div class="container">
+            <h2 class="text-center display-5 fw-bold section-title">Our Work</h2>
+            <p class="text-center section-subtitle">See the difference we make in every space we clean</p>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 gallery-item"><img src="https://nyarai-homecare.com/wp-content/uploads/2023/04/blog-post-.housekeeper.jpg" loading="lazy" alt="Cleaning" onclick="openLightbox(0)"></div>
+                <div class="col-lg-4 col-md-6 gallery-item"><img src="https://media.istockphoto.com/id/1454109929/photo/cleaner-house-and-black-woman-cleaning-dust-on-furniture-tables-and-wood-with-liquid-soap-in.jpg?s=612x612&w=0&k=20&c=D6mAf5S1hfmRjgomMlNMFL6-kAeBiVJMo2-2Dduo6hc=" loading="lazy" alt="Cleaning" onclick="openLightbox(1)"></div>
+                <div class="col-lg-4 col-md-6 gallery-item"><img src="https://static.vecteezy.com/system/resources/thumbnails/073/341/548/small/women-cleaning-kitchen-together-joyful-2023-photo.jpg" loading="lazy" alt="Cleaning" onclick="openLightbox(2)"></div>
+                <div class="col-lg-4 col-md-6 gallery-item"><img src="https://img.freepik.com/premium-photo/black-couple-spray-cleaning-table-home-chemical-disinfection-teamwork-hygiene-people-morning-chores-surface-sanitation-with-antibacterial-soap-remove-germs-housekeeping_590464-512065.jpg?semt=ais_hybrid&w=740&q=80" loading="lazy" alt="Cleaning" onclick="openLightbox(3)"></div>
+                <div class="col-lg-4 col-md-6 gallery-item"><img src="https://media.istockphoto.com/id/1318327834/photo/afro-female-maid-working-at-hostel-disinfecting-and-preparing-for-the-hostel-guests-after.jpg?s=612x612&w=0&k=20&c=vQ0OqMFhJGDdQt40m73PnzCTyrzzdtjGst9A5w6zZfA=" loading="lazy" alt="Cleaning" onclick="openLightbox(4)"></div>
+                <div class="col-lg-4 col-md-6 gallery-item"><img src="https://img.freepik.com/premium-photo/african-commercial-janitor-cleaning-staff_1016675-382.jpg?semt=ais_hybrid&w=740&q=80" loading="lazy" alt="Cleaning" onclick="openLightbox(5)"></div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Lightbox -->
+    <div id="lightbox">
+        <span class="lightbox-controls" onclick="closeLightbox()">×</span>
+        <img id="lightbox-img" src="" alt="">
+        <div id="imageCounter" style="
+    position:absolute;
+    bottom:20px;
+    color:white;
+    font-size:16px;
+    background:rgba(0,0,0,0.5);
+    padding:5px 12px;
+    border-radius:20px;
+">
+</div>
+    </div>
+ 
+
+    <!-- Location & Contact -->
+    <section id="location" class="py-5 fade-in">
+        <div class="container">
+            <h2 class="text-center display-5 fw-bold section-title">Our Location</h2>
+            <p class="text-center section-subtitle">Find us at the heart of Victoria Island</p>
+            <div class="row g-5 align-items-start">
+                <div class="col-lg-5">
+                    <h4 class="fw-bold mb-4">Get In Touch</h4>
+                    <div class="mb-4">
+                        <p class="mb-1"><i class="fas fa-phone me-3 text-primary"></i><strong>Phone / WhatsApp:</strong></p>
+                        <p class="fs-5">0708 974 3895</p>
+                    </div>
+                    <div class="mb-4">
+                        <p class="mb-1"><i class="fas fa-map-marker-alt me-3 text-primary"></i><strong>Address:</strong></p>
+                        <p>Victoria Island, Lagos, Nigeria</p>
+                    </div>
+                    <div class="mb-4">
+                        <p class="mb-1"><i class="fas fa-envelope me-3 text-primary"></i><strong>Email:</strong></p>
+                        <p>humphreyukhurebor@gmail.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="ratio ratio-16x9 rounded shadow">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.5!2d3.428!3d6.428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2f0f0f0f0f%3A0x0!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1740000000000" 
+                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- CONTACT FORM SECTION -->
+<section id="contact" class="py-5 bg-light fade-in">
+    <div class="container">
+        <h2 class="text-center display-5 fw-bold section-title">GET IN TOUCH</h2>
+        <p class="text-center section-subtitle">Have questions or want to book a service? Reach out to us!</p>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+
+                <form id="contactForm" class="p-4">
+
+                    <div class="mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea name="message" class="form-control" rows="5" placeholder="Book a Cleaning Service" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark w-100">Book Service</button>
+
+                </form>
+                <p class="text-center mt-4 fs-5">
+                        Call: <strong>0708 974 3895</strong><br>
+                        Or reach us on social media
+                    </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/2347089743895?text=Hello%2C%20I%27m%20interested%20in%20your%20cleaning%20services.%20My%20name%20is..." 
+       target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="fw-bold">SparkleClean</h5>
+                    <p>Professional Cleaning Services</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="#services" class="text-white text-decoration-none">Services</a></li>
+                        <li><a href="#gallery" class="text-white text-decoration-none">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold">Follow Us</h5>
+                    <a href="#" class="text-white me-3 fs-4"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-3 fs-4"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="text-white fs-4"><i class="fab fa-x-twitter"></i></a>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2026 SparkleClean • Made by Humphrey Web Solutions</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fade-in
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Lightbox
+        let currentIndex = 0;
+const images = document.querySelectorAll('.gallery-item img');
+
+let isZoomed = false;
+let lastTap = 0;
+
+function openLightbox(index) {
+    currentIndex = index;
+    document.getElementById('lightbox').style.display = 'flex';
+    isZoomed = false;
+    updateLightbox();
+}
+
+function updateLightbox() {
+    const img = document.getElementById('lightbox-img');
+    img.src = images[currentIndex].src;
+    img.style.transform = "scale(1)";
+
+    // image counter
+    document.getElementById('imageCounter').innerText =
+        `${currentIndex + 1} / ${images.length}`;
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+
+/* NEXT / PREV */
+function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateLightbox();
+}
+
+function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateLightbox();
+}
+
+/* KEYBOARD */
+document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'Escape') closeLightbox();
+    }
+});
+
+/* SWIPE (mobile) */
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.getElementById('lightbox').addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.getElementById('lightbox').addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    let diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > 50 && !isZoomed) {
+        if (diff > 0) nextImage();
+        else prevImage();
+    }
+}
+
+/* =========================
+   DOUBLE TAP / DOUBLE CLICK ZOOM
+========================= */
+
+const lightboxImg = document.getElementById('lightbox-img');
+
+/* mobile double tap */
+lightboxImg.addEventListener('touchend', function () {
+    const now = new Date().getTime();
+    const timeSince = now - lastTap;
+
+    if (timeSince < 300 && timeSince > 0) {
+        toggleZoom();
+    }
+    lastTap = now;
+});
+
+/* desktop double click */
+lightboxImg.addEventListener('dblclick', function () {
+    toggleZoom();
+});
+
+function toggleZoom() {
+    if (!isZoomed) {
+        lightboxImg.style.transform = "scale(2)";
+        lightboxImg.style.cursor = "zoom-out";
+        isZoomed = true;
+    } else {
+        lightboxImg.style.transform = "scale(1)";
+        lightboxImg.style.cursor = "zoom-in";
+        isZoomed = false;
+    }
+}
+    </script>
+
+    <script>
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault(); // 🚫 stops redirect
+
+    fetch("https://formspree.io/f/mnjoegay", {
+        method: "POST",
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+        if (response.ok) {
+            document.getElementById("successPopup").style.display = "flex";
+            showPopup(); // ✅ THIS is where it goes
+            form.reset(); // reset fields
+        } else {
+            alert("Something went wrong. Please try again.");
+        }
+    })
+    .catch(() => {
+        alert("Network error. Check your internet.");
+    });
+});
+
+function closePopup() {
+    document.getElementById("successPopup").style.display = "none";
+}
+</script>
+
+
+<!-- new -->
+<script>
+document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        const navbar = document.querySelector('.navbar-collapse');
+        const bsCollapse = new bootstrap.Collapse(navbar, {
+            toggle: false
+        });
+        bsCollapse.hide();
+    });
+});
+
+function showPopup() {
+    const popup = document.getElementById('successPopup');
+    popup.classList.add('show');
+
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 1000);
+}
+/* =========================
+   NAVBAR SCROLL EFFECT
+========================= */
+
+const navbar = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+const reviews = [
+    {
+        text: "Amazing experience! My apartment has never looked better.",
+        name: "— Sarah Johnson",
+        img: "https://i.pravatar.cc/80?img=1"
+    },
+    {
+        text: "Best cleaning service I've ever been to. Highly recommend!",
+        name: "— Michael Lee",
+        img: "https://i.pravatar.cc/80?img=2"
+    },
+    {
+        text: "Great service and excellent attention to detail!",
+        name: "— Ada Obi",
+        img: "https://i.pravatar.cc/80?img=3"
+    },
+    {
+        text: "Professional staff and relaxing atmosphere. Loved it!",
+        name: "— David Smith",
+        img: "https://i.pravatar.cc/80?img=4"
+    },
+    {
+        text: "Exceptional results and outstanding customer service!",
+        name: "— Chioma Eze",
+        img: "https://i.pravatar.cc/80?img=5"
+    }
+];
+
+let reviewIndex = 0;
+
+setInterval(() => {
+    reviewIndex = (reviewIndex + 1) % reviews.length;
+
+    document.querySelector(".review-text").innerText = `"${reviews[reviewIndex].text}"`;
+    document.querySelector(".review-box h6").innerText = reviews[reviewIndex].name;
+    document.getElementById("review-img").src = reviews[reviewIndex].img;
+
+}, 4000);
+
+
+
+</script>
+
+<script>
+function sendToWhatsApp() {
+    const name = document.getElementById("name").value;
+    const service = document.getElementById("service").value;
+    const location = document.getElementById("location").value;
+    const date = document.getElementById("date").value;
+    const urgency = document.getElementById("urgency").value;
+
+    if (!name || !location || !date) {
+        alert("Please fill name, location, and date.");
+        return;
+    }
+
+    const phone = "2347089743895";
+
+    const message = `Hello SparkleClean 👋
+I want to book a cleaning service.
+
+Name: ${name}
+Service: ${service}
+Location: ${location}
+Preferred Date: ${date}
+Urgency: ${urgency}
+
+Please confirm availability.`;
+
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank");
+}
+</script>
+
+<script>
+    // COUNTER ANIMATION
+const counters = document.querySelectorAll('.counter');
+
+const runCounter = (counter) => {
+    counter.innerText = '0';
+
+    const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const current = +counter.innerText;
+
+        const increment = target / 100;
+
+        if (current < target) {
+            counter.innerText = Math.ceil(current + increment);
+            setTimeout(updateCount, 20);
+        } else {
+            counter.innerText = target;
+        }
+    };
+
+    updateCount();
+};
+
+// trigger when visible
+const statsSection = document.querySelector('#stats');
+
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            counters.forEach(counter => runCounter(counter));
+            statsObserver.disconnect();
+        }
+    });
+}, { threshold: 0.5 });
+
+statsObserver.observe(statsSection);
+</script>
+
+<script>
+    // BEFORE / AFTER SLIDER FUNCTION
+const baWrapper = document.querySelector('.ba-wrapper');
+const afterImage = document.querySelector('.ba-image.after');
+const handle = document.querySelector('.ba-slider-handle');
+
+let isDragging = false;
+
+const startDrag = () => isDragging = true;
+const stopDrag = () => isDragging = false;
+
+const moveSlider = (x) => {
+    const rect = baWrapper.getBoundingClientRect();
+    let position = ((x - rect.left) / rect.width) * 100;
+
+    if (position < 0) position = 0;
+    if (position > 100) position = 100;
+
+    afterImage.style.width = position + "%";
+    handle.style.left = position + "%";
+};
+
+/* MOUSE */
+handle.addEventListener('mousedown', startDrag);
+window.addEventListener('mouseup', stopDrag);
+window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    moveSlider(e.clientX);
+});
+
+/* TOUCH */
+handle.addEventListener('touchstart', startDrag);
+window.addEventListener('touchend', stopDrag);
+window.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    moveSlider(e.touches[0].clientX);
+});
+</script>
+
+
+    <!-- Success Popup -->
+<div id="successPopup">
+    <div class="popup-box">
+        <i class="fas fa-check-circle"></i>
+        <h4>Message Sent!</h4>
+        <p>We’ll get back to you shortly.</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
+
+
+</body>
+</html>
